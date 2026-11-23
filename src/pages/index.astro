@@ -2,9 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import Intro from '../components/Intro.astro';
 
 const sections = [
-	{ id: 'inicio', name: '1. Introducción', bg: 'var(--bg-dark)' },
 	{ id: 'sobre-mi', name: '2. Sobre mí', bg: 'var(--bg-slate)' },
 	{ id: 'proyectos', name: '3. Proyectos', bg: 'var(--bg-dark)' },
 	{ id: 'filosofia', name: '4. Filosofía', bg: 'var(--bg-light)', light: true },
@@ -17,6 +17,7 @@ const sections = [
 <Layout title="Portfolio">
 	<Header />
 	<main>
+		<Intro />
 		{
 			sections.map((section) => (
 				<section

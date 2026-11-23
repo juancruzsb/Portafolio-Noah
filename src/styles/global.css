@@ -19,6 +19,11 @@
 	   - Más de 1920px: crece proporcional (1136 / 1920 = 59.17vw). */
 	--content-width: max(min(1136px, 100% - 2rem), 59.17vw);
 
+	/* Unidad de diseño: 1px del Figma (frame 1920px).
+	   Vale 1px hasta 1920px de pantalla y crece proporcional después.
+	   Uso: calc(172.9 * var(--u)) */
+	--u: max(1px, 0.052083vw);
+
 	/* Tipografías (definidas en astro.config.mjs) */
 	--font-logo: var(--font-tenor); /* logos y titulares */
 	--font-body: var(--font-jost); /* subtítulos, títulos y textos */

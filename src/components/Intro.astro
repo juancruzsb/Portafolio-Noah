@@ -1,0 +1,250 @@
+---
+import { Image } from 'astro:assets';
+import persona from '../assets/intro/persona.png';
+import interior from '../assets/intro/interior.png';
+import montania from '../assets/intro/montania.png';
+import arrow from '../assets/intro/SVG.png';
+
+const keywords = ['Moderno', 'Materialidad', 'Luz'];
+---
+
+<section id="inicio">
+	<div class="intro">
+		<div class="intro-text">
+			<p class="eyebrow">Noah Ariel Marabi · Portfolio de arquitectura</p>
+			<h1 class="title">NOAH</h1>
+			<p class="tagline">Less form, more presence.</p>
+			<p class="description">
+				Me atrae una arquitectura que transmite presencia sin necesidad de excesos. Valoro la
+				simpleza de las formas, la fuerza de los materiales y el papel de la iluminación para
+				transformar un espacio.
+			</p>
+			<ul class="keywords">
+				{keywords.map((word) => <li>{word}</li>)}
+			</ul>
+			<a class="button" href="#proyectos">Ver proyectos</a>
+		</div>
+
+		<div class="intro-images">
+			<Image class="persona" src={persona} alt="Retrato de Noah" loading="eager" />
+			<Image class="interior" src={interior} alt="Espacio interior" loading="eager" />
+			<Image class="montania" src={montania} alt="Paisaje de montaña" loading="eager" />
+			<div class="note">
+				<p class="caption">Buenos Aires, 2026.</p>
+				<Image class="arrow" src={arrow} alt="" aria-hidden="true" loading="eager" />
+			</div>
+		</div>
+	</div>
+</section>
+
+<style>
+	section {
+		background: var(--bg-dark);
+		min-height: 100vh;
+		/* Figma: el primer texto arranca en top 166.33px */
+		padding-block: calc(166.33 * var(--u)) calc(120 * var(--u));
+		box-sizing: border-box;
+	}
+
+	.intro {
+		width: var(--content-width);
+		margin-inline: auto;
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+	}
+
+	.intro-text {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+	}
+
+	/* Estilo común de textos chicos en mayúsculas */
+	.eyebrow,
+	.keywords li,
+	.button {
+		font-family: var(--font-body);
+		font-weight: 500;
+		font-size: calc(12 * var(--u));
+		line-height: 1;
+		text-transform: uppercase;
+		color: var(--heading);
+	}
+
+	.eyebrow {
+		height: calc(18 * var(--u));
+		margin: 0;
+		display: flex;
+		align-items: center;
+		letter-spacing: 0.3em; /* 3.6px / 12px */
+	}
+
+	.title {
+		height: calc(202 * var(--u));
+		margin: calc(4 * var(--u)) 0 0;
+		display: flex;
+		align-items: center;
+		font-family: var(--font-logo);
+		font-weight: 400;
+		/* 172.9px en el Figma; se limita en pantallas chicas para que no desborde */
+		font-size: min(calc(172.9 * var(--u)), 24vw);
+		line-height: 0.9; /* 155.57 / 172.9 */
+		letter-spacing: 0.06em; /* 10.37 / 172.9 */
+		color: #efeae0;
+	}
+
+	.tagline {
+		height: calc(41.28 * var(--u));
+		margin: calc(-2.44 * var(--u)) 0 0;
+		display: flex;
+		align-items: center;
+		font-family: var(--font-logo);
+		font-size: calc(34.4 * var(--u));
+		line-height: 1.2; /* 41.28 / 34.4 */
+		color: var(--heading);
+	}
+
+	.description {
+		max-width: calc(543.04 * var(--u));
+		height: calc(89 * var(--u));
+		margin: calc(46 * var(--u)) 0 0;
+		display: flex;
+		align-items: center;
+		font-family: var(--font-body);
+		font-weight: 300;
+		font-size: calc(18 * var(--u));
+		line-height: 1.75; /* 31.5 / 18 */
+		color: var(--text);
+	}
+
+	.keywords {
+		list-style: none;
+		padding: 0;
+		margin: calc(35.5 * var(--u)) 0 0;
+		display: flex;
+		flex-wrap: wrap;
+		gap: calc(27.6 * var(--u));
+	}
+
+	.keywords li {
+		height: calc(18 * var(--u));
+		display: flex;
+		align-items: center;
+		letter-spacing: 0.28em; /* 3.36px / 12px */
+	}
+
+	.button {
+		box-sizing: border-box;
+		color: #efeae0;
+		letter-spacing: 0.28em; /* 3.36px / 12px */
+		width: calc(202.94 * var(--u));
+		height: calc(52 * var(--u));
+		margin-top: calc(48 * var(--u));
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid var(--heading);
+		text-decoration: none;
+		transition:
+			background-color 0.2s,
+			color 0.2s;
+	}
+
+	.button:hover {
+		background: var(--heading);
+		color: var(--bg-dark);
+	}
+
+	/* ---- Columna derecha: collage de imágenes ----
+	   Las coordenadas son las del Figma menos el origen del bloque
+	   (x 1015.57, y 176.48). El bloque llega hasta el borde derecho de los 1136px. */
+	.intro-images {
+		position: relative;
+		justify-self: end;
+		width: calc(512.43 * var(--u));
+		height: calc(527 * var(--u));
+		margin-top: calc(10.15 * var(--u)); /* 176.48 - 166.33 */
+	}
+
+	/* Los PNG ya vienen exportados del Figma con la rotación (2.2°, -2.6°, 3.4°)
+	   y la sombra incluidas, así que se muestran a su tamaño real, sin rotar por
+	   CSS ni recortar. Cada uno se ubica haciendo coincidir el centro del marco
+	   (la parte opaca) con el centro de la caja del Figma. */
+	.intro-images :global(img) {
+		position: absolute;
+		display: block;
+		max-width: none;
+	}
+
+	.intro-images :global(.persona) {
+		left: calc(-64 * var(--u));
+		top: calc(-46 * var(--u));
+		width: calc(373 * var(--u));
+		height: calc(579 * var(--u));
+	}
+
+	.intro-images :global(.interior) {
+		left: calc(214.07 * var(--u));
+		top: calc(22.75 * var(--u));
+		width: calc(343 * var(--u));
+		height: calc(276 * var(--u));
+	}
+
+	.intro-images :global(.montania) {
+		left: calc(272.48 * var(--u));
+		top: calc(205 * var(--u));
+		width: calc(284 * var(--u));
+		height: calc(306 * var(--u));
+	}
+
+	/* Texto + flecha se inclinan juntos, en el mismo sentido que la foto de
+	   Noah (antihorario). En el Figma los ángulos positivos son antihorarios,
+	   pero en CSS son horarios: por eso el signo negativo. */
+	.note {
+		--tilt: -4deg;
+		position: absolute;
+		left: calc(15.63 * var(--u));
+		top: calc(472.81 * var(--u));
+		width: calc(292.94 * var(--u));
+		height: calc(53.71 * var(--u));
+		transform: rotate(var(--tilt));
+	}
+
+	.caption {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: calc(216.34 * var(--u));
+		height: calc(41 * var(--u));
+		margin: 0;
+		display: flex;
+		align-items: center;
+		white-space: nowrap;
+		font-family: var(--font-hand);
+		font-weight: 400;
+		font-size: calc(32 * var(--u));
+		line-height: 1.1; /* 35.2 / 32 */
+		color: var(--heading);
+	}
+
+	.intro-images :global(.arrow) {
+		left: calc(228.94 * var(--u)); /* 244.57 - 15.63 */
+		top: calc(7.71 * var(--u)); /* 480.52 - 472.81 */
+		width: calc(64 * var(--u));
+		height: calc(46 * var(--u));
+	}
+
+	/* Debajo de ~1180px los dos bloques ya no entran lado a lado: se apilan */
+	@media (max-width: 1180px) {
+		.intro {
+			grid-template-columns: 1fr;
+			row-gap: calc(80 * var(--u));
+		}
+
+		.intro-images {
+			--u: min(1px, calc((100vw - 2rem) / 512.43));
+			justify-self: center;
+			margin-top: 0;
+		}
+	}
+</style>
