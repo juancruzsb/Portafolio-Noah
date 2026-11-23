@@ -3,10 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Intro from '../components/Intro.astro';
+import About from '../components/About.astro';
+import Projects from '../components/Projects.astro';
 
 const sections = [
-	{ id: 'sobre-mi', name: '2. Sobre mí', bg: 'var(--bg-slate)' },
-	{ id: 'proyectos', name: '3. Proyectos', bg: 'var(--bg-dark)' },
 	{ id: 'filosofia', name: '4. Filosofía', bg: 'var(--bg-light)', light: true },
 	{ id: 'referencias', name: '5. Referencias', bg: 'var(--bg-dark)' },
 	{ id: 'materialidad', name: '6. Materialidad', bg: 'var(--bg-slate)' },
@@ -18,6 +18,8 @@ const sections = [
 	<Header />
 	<main>
 		<Intro />
+		<About />
+		<Projects />
 		{
 			sections.map((section) => (
 				<section

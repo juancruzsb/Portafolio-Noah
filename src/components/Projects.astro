@@ -1,0 +1,323 @@
+---
+import { Image } from 'astro:assets';
+import perrubi from '../assets/proyectos/perrubi.png';
+import pokeortCombate from '../assets/proyectos/pokeort combate.png';
+import macetonio from '../assets/proyectos/Render 3D del personaje Macetonio.png';
+import rocoso from '../assets/proyectos/Render 3D del personaje Rocoso.png';
+import espiritu from '../assets/proyectos/Render 3D del personaje Espíritu de fuego.png';
+import gatito from '../assets/proyectos/Render 3D del personaje Gatito.png';
+
+const projects = [
+	{
+		eyebrow: '01 · App móvil',
+		title: 'Perrubi',
+		text: 'Una app para paseadores de perros, hecha en grupo. Yo diseñé las 20 pantallas del recorrido completo: encontrar paseos cerca, aceptar una solicitud, seguir el paseo en el mapa, chatear con el dueño y cobrar. La programación la hizo el equipo.',
+		characters: [],
+		figure: {
+			image: perrubi,
+			alt: 'Cuatro de las 20 pantallas de la app Perrubi',
+			caption: 'Cuatro de las 20 pantallas',
+			note: 'Mi parte: UX / UI',
+		},
+	},
+	{
+		eyebrow: '02 · Videojuego 3D',
+		title: 'PokeORT 3D',
+		text: 'Un juego RPG de mundo semi-abierto hecho en Unity, en grupo con Juan Cruz Sabio, Facundo Pirolo y Jonas Leiserson. Yo modelé los personajes en Blender y animé algunos; la programación la hizo el equipo.',
+		characters: [
+			{ name: 'Macetonio', role: 'Modelado', image: macetonio },
+			{ name: 'Rocoso', role: 'Modelado + animación', image: rocoso },
+			{ name: 'Espíritu de fuego', role: 'Modelado + animación', image: espiritu },
+			{ name: 'Gatito', role: 'Modelado', image: gatito },
+		],
+		figure: {
+			image: pokeortCombate,
+			alt: 'Captura de un combate en PokeORT 3D',
+			caption: 'Rocoso dentro del juego, como Roktom',
+			note: 'Captura de PokeORT 3D',
+		},
+	},
+];
+---
+
+<section id="proyectos">
+	<div class="projects">
+		<header class="intro">
+			<p class="eyebrow">Proyectos</p>
+			<h2 class="title">Lo que diseñé hasta ahora</h2>
+			<p class="lead">
+				Antes de la arquitectura, diseñé apps y juegos en la escuela. Estos son dos de esos
+				proyectos.
+			</p>
+		</header>
+
+		{
+			projects.map((project) => (
+				<article class="project">
+					<div class="head">
+						<p class="eyebrow head-eyebrow">{project.eyebrow}</p>
+						<h3 class="head-title">{project.title}</h3>
+						<p class="head-text">{project.text}</p>
+					</div>
+
+					{project.characters.length > 0 && (
+						<ul class="characters">
+							{project.characters.map((character) => (
+								<li>
+									<figure class="character">
+										<Image class="character-image" src={character.image} alt={`Render 3D del personaje ${character.name}`} />
+										<figcaption>
+											<span class="name">{character.name}</span>
+											<span class="role">{character.role}</span>
+										</figcaption>
+									</figure>
+								</li>
+							))}
+						</ul>
+					)}
+
+					<figure class="figure">
+						<Image class="figure-image" src={project.figure.image} alt={project.figure.alt} />
+						<figcaption class="figure-caption">
+							<span class="name">{project.figure.caption}</span>
+							<span class="role note">{project.figure.note}</span>
+						</figcaption>
+					</figure>
+				</article>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	section {
+		background: var(--bg-dark);
+		/* Figma: el primer texto arranca a 120px del borde superior de la sección */
+		padding-block: calc(120 * var(--u));
+		box-sizing: border-box;
+	}
+
+	.projects {
+		width: var(--content-width);
+		margin-inline: auto;
+	}
+
+	/* Estilo común de los textos chicos en mayúsculas (Jost 500) */
+	.eyebrow,
+	.role {
+		font-family: var(--font-body);
+		font-weight: 500;
+		text-transform: uppercase;
+		color: var(--heading);
+		line-height: 1;
+	}
+
+	/* ---- Cabecera de la sección ---- */
+	.eyebrow {
+		height: calc(18 * var(--u));
+		margin: 0;
+		display: flex;
+		align-items: center;
+		font-size: calc(12 * var(--u));
+		letter-spacing: 0.3em; /* 3.6px / 12px */
+	}
+
+	.title {
+		min-height: calc(89 * var(--u));
+		margin: calc(22 * var(--u)) 0 0; /* eyebrow 120 + 18 -> título 160 */
+		display: flex;
+		align-items: center;
+		font-family: var(--font-logo);
+		font-weight: 400;
+		font-size: min(calc(76.5 * var(--u)), 12vw);
+		line-height: 1.0205; /* 78.07 / 76.5 */
+		color: #efeae0;
+	}
+
+	.lead {
+		max-width: calc(525.84 * var(--u));
+		height: calc(57.5 * var(--u)); /* alto fijo: el texto se centra en la caja del Figma */
+		margin: calc(21.07 * var(--u)) 0 0; /* 249 -> 270.07 */
+		display: flex;
+		align-items: center;
+		font-family: var(--font-body);
+		font-weight: 300;
+		font-size: calc(18 * var(--u));
+		line-height: 1.75; /* 31.5 / 18 */
+		color: var(--text);
+	}
+
+	/* ---- Cada proyecto ---- */
+	.project {
+		margin-top: calc(91.5 * var(--u)); /* 327.57 -> 419.07 */
+	}
+
+	.project + .project {
+		margin-top: calc(120 * var(--u)); /* entre un proyecto y el siguiente */
+	}
+
+	.head {
+		position: relative;
+		height: calc(167 * var(--u));
+		box-sizing: border-box;
+		border-top: 1px solid #efeae038;
+	}
+
+	.head-eyebrow {
+		position: absolute;
+		top: calc(79.84 * var(--u));
+		left: 0;
+	}
+
+	.head-title {
+		position: absolute;
+		top: calc(118.84 * var(--u));
+		left: 0;
+		margin: 0;
+		font-family: var(--font-logo);
+		font-weight: 400;
+		font-size: calc(48.2 * var(--u));
+		line-height: 0.999; /* 48.16 / 48.2 */
+		white-space: nowrap;
+		color: #efeae0;
+	}
+
+	.head-text {
+		position: absolute;
+		top: calc(43 * var(--u));
+		left: calc(655.77 * var(--u));
+		width: calc(479.68 * var(--u));
+		height: calc(120.5 * var(--u));
+		margin: 0;
+		display: flex;
+		align-items: center;
+		font-family: var(--font-body);
+		font-weight: 300;
+		font-size: calc(18 * var(--u));
+		line-height: 1.75;
+		color: var(--text);
+	}
+
+	/* ---- Textos bajo cada imagen ---- */
+	.name {
+		display: flex;
+		align-items: center;
+		height: calc(27 * var(--u));
+		font-family: var(--font-logo);
+		font-weight: 400;
+		font-size: calc(22.4 * var(--u));
+		line-height: 1;
+		color: #efeae0;
+	}
+
+	.role {
+		display: flex;
+		align-items: center;
+		height: calc(16 * var(--u));
+		font-size: calc(11 * var(--u));
+		letter-spacing: 0.28em; /* 3.08px / 11px */
+	}
+
+	/* ---- Imagen grande con sus dos textos ---- */
+	.figure {
+		margin: calc(40 * var(--u)) 0 0;
+	}
+
+	.figure-image {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.figure-caption {
+		position: relative;
+		height: calc(27 * var(--u));
+		margin-top: calc(16 * var(--u));
+	}
+
+	.figure-caption .note {
+		position: absolute;
+		top: calc(9 * var(--u));
+		right: 0;
+		white-space: nowrap;
+	}
+
+	/* ---- Fila de 4 personajes ---- */
+	.characters {
+		list-style: none;
+		margin: calc(40 * var(--u)) 0 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		column-gap: calc(24 * var(--u)); /* 4 x 266 + 3 x 24 = 1136 */
+	}
+
+	.character {
+		margin: 0;
+	}
+
+	.character-image {
+		display: block;
+		width: 100%;
+		aspect-ratio: 266 / 332.5;
+		object-fit: cover;
+	}
+
+	.character figcaption {
+		margin-top: calc(16 * var(--u));
+		height: calc(49 * var(--u));
+	}
+
+	.character .role {
+		margin-top: calc(6 * var(--u)); /* 33 - 27 */
+	}
+
+	/* Después de los personajes viene la captura grande */
+	.characters + .figure {
+		margin-top: calc(40 * var(--u));
+	}
+
+	/* ---- Pantallas más angostas ---- */
+	@media (max-width: 1180px) {
+		.head {
+			height: auto;
+			padding-block: calc(60 * var(--u)) calc(40 * var(--u));
+		}
+
+		.head-eyebrow,
+		.head-title,
+		.head-text {
+			position: static;
+		}
+
+		.head-title {
+			margin-top: calc(20 * var(--u));
+			white-space: normal;
+			font-size: min(calc(48.2 * var(--u)), 11vw);
+		}
+
+		.head-text {
+			width: auto;
+			height: auto;
+			margin-top: calc(24 * var(--u));
+		}
+
+		.characters {
+			grid-template-columns: repeat(2, 1fr);
+			row-gap: calc(32 * var(--u));
+		}
+
+		.lead {
+			height: auto;
+		}
+
+		.figure-caption {
+			height: auto;
+		}
+
+		.figure-caption .note {
+			position: static;
+			margin-top: calc(8 * var(--u));
+		}
+	}
+</style>
