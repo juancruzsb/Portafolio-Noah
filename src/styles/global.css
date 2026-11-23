@@ -14,6 +14,11 @@
 	--text-on-light: #121212;
 	--heading-on-light: #4b3322; /* títulos y subtítulos */
 
+	/* Layout: el diseño (Figma 1920px) ocupa 1136px centrados.
+	   - Hasta 1920px: 1136px fijos (o el ancho disponible menos 2rem).
+	   - Más de 1920px: crece proporcional (1136 / 1920 = 59.17vw). */
+	--content-width: max(min(1136px, 100% - 2rem), 59.17vw);
+
 	/* Tipografías (definidas en astro.config.mjs) */
 	--font-logo: var(--font-tenor); /* logos y titulares */
 	--font-body: var(--font-jost); /* subtítulos, títulos y textos */

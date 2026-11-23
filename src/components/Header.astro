@@ -1,6 +1,5 @@
 ---
 const links = [
-	{ href: '#inicio', label: 'Inicio' },
 	{ href: '#sobre-mi', label: 'Sobre mí' },
 	{ href: '#proyectos', label: 'Proyectos' },
 	{ href: '#filosofia', label: 'Filosofía' },
@@ -11,9 +10,12 @@ const links = [
 ---
 
 <header>
-	<nav>
-		{links.map((link) => <a href={link.href}>{link.label}</a>)}
-	</nav>
+	<div class="inner">
+		<a class="logo" href="#inicio" aria-label="NOAH - Inicio">NOAH</a>
+		<nav aria-label="Secciones">
+			{links.map((link) => <a href={link.href}>{link.label}</a>)}
+		</nav>
+	</div>
 </header>
 
 <style>
@@ -24,19 +26,49 @@ const links = [
 		right: 0;
 		z-index: 10;
 		background: var(--bg-dark);
+		padding-block: 1.5rem;
 	}
+
+	.inner {
+		width: var(--content-width);
+		margin-inline: auto;
+		display: flex;
+		align-items: center;
+		justify-content: space-between; /* logo a la izquierda, nav a la derecha */
+		flex-wrap: wrap;
+		gap: 0.75rem 2rem;
+	}
+
+	/* Tamaños del Figma (frame 1920px) como mínimo; crecen en pantallas > 1920px */
+	.logo {
+		font-family: var(--font-logo);
+		font-size: max(22.4px, 1.1667vw); /* 22.4 / 1920 */
+		letter-spacing: 0.339em; /* 7.6px / 22.4px */
+		color: #efeae0;
+		text-decoration: none;
+		line-height: 1;
+	}
+
 	nav {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 1rem;
-		padding: 0.75rem 1.5rem;
+		justify-content: flex-end;
+		/* Figma: "Sobre mí" en left 393.52 y "Contacto" en 1047.92 (dentro de
+		   los 1136px) => 32px entre links. Crece en pantallas > 1920px. */
+		gap: 0.5rem max(32px, 1.6667vw);
 	}
-	a {
-		color: var(--heading);
+
+	nav a {
 		font-family: var(--font-body);
+		font-size: max(12px, 0.625vw); /* 12 / 1920 */
+		font-weight: 500;
+		letter-spacing: 0.26em; /* 3.12px / 12px */
+		text-transform: uppercase;
+		color: #c9bba8;
 		text-decoration: none;
 	}
-	a:hover {
+
+	nav a:hover {
 		text-decoration: underline;
 	}
 </style>
