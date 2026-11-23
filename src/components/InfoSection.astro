@@ -1,0 +1,216 @@
+---
+/*
+ * Layout compartido por "Sobre mí" y "Filosofía":
+ *   arriba  -> subtítulo + titular (a la izquierda) y, opcional, un texto a la derecha
+ *   abajo   -> caja con borde superior y 4 columnas (subtítulo + textos manuscritos)
+ *
+ * Las posiciones de los textos manuscritos (left/top) son las del Figma, relativas a
+ * su columna. `angle` es el ángulo del Figma (positivo = antihorario); en CSS se invierte.
+ */
+interface Note {
+	text: string;
+	left: number;
+	top: number;
+	angle: number;
+	width?: number;
+}
+
+interface Fact {
+	title: string;
+	notes: Note[];
+}
+
+interface Props {
+	id: string;
+	variant?: 'dark' | 'light';
+	eyebrow: string;
+	titleLines: string[];
+	/** Alto mínimo de la caja del titular (Figma). */
+	titleHeight: number;
+	bio?: string;
+	facts: Fact[];
+	/** Alto de la caja inferior (Figma). */
+	factsHeight?: number;
+}
+
+const {
+	id,
+	variant = 'dark',
+	eyebrow,
+	titleLines,
+	titleHeight,
+	bio,
+	facts,
+	factsHeight = 162.59,
+} = Astro.props;
+
+const noteStyle = (note: Note) =>
+	[
+		`left:calc(${note.left} * var(--u))`,
+		`top:calc(${note.top} * var(--u))`,
+		note.width ? `width:calc(${note.width} * var(--u))` : 'width:max-content',
+		`transform:rotate(${-note.angle}deg)`,
+	].join(';');
+---
+
+<section id={id} class:list={[variant]}>
+	<div class="wrap">
+		<div class:list={['top', { 'has-bio': bio }]}>
+			<div class="heading">
+				<p class="eyebrow">{eyebrow}</p>
+				<h2 class="title" style={`min-height:calc(${titleHeight} * var(--u))`} set:html={titleLines.join('<br />')} />
+			</div>
+
+			{bio && <p class="bio">{bio}</p>}
+		</div>
+
+		<div class="facts">
+			{
+				facts.map((fact) => (
+					<div class="fact" style={`height:calc(${factsHeight - 1} * var(--u))`}>
+						<h3 class="fact-title">{fact.title}</h3>
+						{fact.notes.map((note) => (
+							<p class="note" style={noteStyle(note)}>
+								{note.text}
+							</p>
+						))}
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	section {
+		--c-bg: var(--bg-slate);
+		--c-eyebrow: var(--heading);
+		--c-title: #efeae0;
+		--c-text: var(--text);
+		--c-border: #efeae038;
+		--c-note: #efeae0;
+
+		background: var(--c-bg);
+		/* Figma: el primer texto arranca a 120px del borde superior de la sección */
+		padding-block: calc(120 * var(--u));
+		box-sizing: border-box;
+	}
+
+	section.light {
+		--c-bg: var(--bg-light);
+		--c-eyebrow: var(--heading-on-light);
+		--c-title: var(--text-on-light);
+		--c-text: var(--text-on-light);
+		--c-border: #12121247;
+		--c-note: var(--text-on-light);
+	}
+
+	.wrap {
+		width: var(--content-width);
+		margin-inline: auto;
+	}
+
+	/* ---- Arriba ---- */
+	.top {
+		display: grid;
+		grid-template-columns: 1fr;
+	}
+
+	.top.has-bio {
+		grid-template-columns: calc(660 * var(--u)) 1fr;
+	}
+
+	.eyebrow,
+	.fact-title {
+		height: calc(18 * var(--u));
+		margin: 0;
+		display: flex;
+		align-items: center;
+		font-family: var(--font-body);
+		font-weight: 500;
+		font-size: calc(12 * var(--u));
+		line-height: 1;
+		letter-spacing: 0.3em; /* 3.6px / 12px */
+		text-transform: uppercase;
+		color: var(--c-eyebrow);
+	}
+
+	.title {
+		margin: calc(22 * var(--u)) 0 0; /* subtítulo (top 120 + 18) -> titular (top 160) */
+		display: flex;
+		align-items: center;
+		font-family: var(--font-logo);
+		font-weight: 400;
+		font-size: min(calc(76.5 * var(--u)), 18vw);
+		line-height: 1.0205; /* 78.07 / 76.5 */
+		white-space: nowrap;
+		color: var(--c-title);
+	}
+
+	.bio {
+		max-width: calc(474.56 * var(--u));
+		min-height: calc(183.5 * var(--u));
+		margin: calc(171.25 * var(--u)) 0 0; /* 291.25 - 120 */
+		display: flex;
+		align-items: center;
+		font-family: var(--font-body);
+		font-weight: 300;
+		font-size: calc(18 * var(--u));
+		line-height: 1.75; /* 31.5 / 18 */
+		color: var(--c-text);
+	}
+
+	/* ---- Abajo: caja con 4 columnas ---- */
+	.facts {
+		margin-top: calc(91.06 * var(--u));
+		border-top: 1px solid var(--c-border);
+		display: grid;
+		grid-template-columns: repeat(3, calc(294 * var(--u))) 1fr;
+	}
+
+	.fact {
+		position: relative;
+	}
+
+	.fact-title {
+		position: absolute;
+		top: calc(41 * var(--u));
+		left: 0;
+	}
+
+	.note {
+		position: absolute;
+		height: calc(47 * var(--u));
+		margin: 0;
+		display: flex;
+		align-items: center;
+		white-space: nowrap;
+		font-family: var(--font-hand);
+		font-weight: 300; /* Caveat arranca en 400: se ve como Regular */
+		font-size: calc(38 * var(--u));
+		line-height: 1.1; /* 41.8 / 38 */
+		color: var(--c-note);
+	}
+
+	/* ---- Pantallas más angostas ---- */
+	@media (max-width: 1180px) {
+		.top.has-bio {
+			grid-template-columns: 1fr;
+		}
+
+		.bio {
+			margin-top: calc(40 * var(--u));
+		}
+
+		.facts {
+			grid-template-columns: repeat(2, calc(294 * var(--u)));
+			justify-content: space-between;
+		}
+	}
+
+	@media (max-width: 700px) {
+		.facts {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

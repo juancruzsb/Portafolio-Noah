@@ -1,0 +1,53 @@
+---
+import InfoSection from './InfoSection.astro';
+
+/*
+ * Mismo layout que "Sobre mí", sin el texto de la derecha.
+ * Posiciones y ángulos: se reutilizan los de cada columna de "Sobre mí"
+ * (el Figma no trae medidas propias para esta sección); las líneas extra
+ * siguen el mismo interlineado.
+ */
+const facts = [
+	{
+		title: 'Carácter',
+		notes: [
+			{ text: 'La arquitectura', left: -1.17, top: 71.52, angle: 1.5 },
+			{ text: 'como expresión de', left: -0.08, top: 114.25, angle: 1.5 },
+			{ text: 'carácter.', left: -0.08, top: 156.98, angle: 1.5 },
+		],
+	},
+	{
+		title: 'Espacio',
+		notes: [
+			{ text: 'Espacios amplios,', left: -0.04, top: 76.01, angle: -1 },
+			{ text: 'limpios y', left: -0.77, top: 117.8, angle: -1 },
+			{ text: 'sofisticados.', left: -0.77, top: 159.59, angle: -1 },
+		],
+	},
+	{
+		title: 'Luz',
+		notes: [
+			{ text: 'La luz define la', left: -0.78, top: 72.02, angle: 1 },
+			{ text: 'experiencia del', left: -0.05, top: 114.99, angle: 1 },
+			{ text: 'espacio.', left: -0.05, top: 157.96, angle: 1 },
+		],
+	},
+	{
+		title: 'Detalle',
+		notes: [
+			{ text: 'Los detalles hacen', left: -0.6, top: 76.01, angle: -1.5 },
+			{ text: 'la diferencia.', left: -0.6, top: 117.8, angle: -1.5 },
+		],
+	},
+];
+---
+
+<InfoSection
+	id="filosofia"
+	variant="light"
+	eyebrow="Filosofía"
+	titleLines={['Diseñar espacios', 'que se sientan, no', 'solo que se vean.']}
+	titleHeight={245.12}
+	facts={facts}
+	factsHeight={207}
+/>

@@ -5,9 +5,9 @@ import Footer from '../components/Footer.astro';
 import Intro from '../components/Intro.astro';
 import About from '../components/About.astro';
 import Projects from '../components/Projects.astro';
+import Philosophy from '../components/Philosophy.astro';
 
 const sections = [
-	{ id: 'filosofia', name: '4. Filosofía', bg: 'var(--bg-light)', light: true },
 	{ id: 'referencias', name: '5. Referencias', bg: 'var(--bg-dark)' },
 	{ id: 'materialidad', name: '6. Materialidad', bg: 'var(--bg-slate)' },
 	{ id: 'contacto', name: '7. Contacto', bg: 'var(--bg-brown)' },
@@ -20,6 +20,7 @@ const sections = [
 		<Intro />
 		<About />
 		<Projects />
+		<Philosophy />
 		{
 			sections.map((section) => (
 				<section
