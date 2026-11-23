@@ -1,0 +1,49 @@
+:root {
+	/* Fondos */
+	--bg-dark: #0b0b0c; /* header, secciones 1, 3, 5, footer */
+	--bg-slate: #1c1e22; /* secciones 2 y 6 */
+	--bg-light: #e8e3d8; /* sección 4 */
+	--bg-brown: #2a1c13; /* sección 7 */
+
+	/* Textos */
+	--text: #efeae0d6;
+	--heading: #c9bba8; /* títulos, subtítulos, botones */
+	--footer-text: #8f8f8b;
+
+	/* Textos sobre fondo claro (sección 4) */
+	--text-on-light: #121212;
+	--heading-on-light: #4b3322; /* títulos y subtítulos */
+
+	/* Tipografías (definidas en astro.config.mjs) */
+	--font-logo: var(--font-tenor); /* logos y titulares */
+	--font-body: var(--font-jost); /* subtítulos, títulos y textos */
+	--font-hand: var(--font-caveat); /* textos específicos */
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	background: var(--bg-dark);
+	color: var(--text);
+	font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4 {
+	color: var(--heading);
+	font-family: var(--font-body);
+}
+
+/* Secciones de fondo claro: invierte los colores de texto */
+.on-light {
+	color: var(--text-on-light);
+}
+
+.on-light :is(h1, h2, h3, h4) {
+	color: var(--heading-on-light);
+}

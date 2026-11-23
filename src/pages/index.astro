@@ -4,13 +4,13 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
 const sections = [
-	{ id: 'inicio', name: '1. Introducción', color: '#f4d6d6' },
-	{ id: 'sobre-mi', name: '2. Sobre mí', color: '#f4e7d0' },
-	{ id: 'proyectos', name: '3. Proyectos', color: '#f1f4d0' },
-	{ id: 'filosofia', name: '4. Filosofía', color: '#d6f4de' },
-	{ id: 'referencias', name: '5. Referencias', color: '#d0eef4' },
-	{ id: 'materialidad', name: '6. Materialidad', color: '#d6dcf4' },
-	{ id: 'contacto', name: '7. Contacto', color: '#e8d6f4' },
+	{ id: 'inicio', name: '1. Introducción', bg: 'var(--bg-dark)' },
+	{ id: 'sobre-mi', name: '2. Sobre mí', bg: 'var(--bg-slate)' },
+	{ id: 'proyectos', name: '3. Proyectos', bg: 'var(--bg-dark)' },
+	{ id: 'filosofia', name: '4. Filosofía', bg: 'var(--bg-light)', light: true },
+	{ id: 'referencias', name: '5. Referencias', bg: 'var(--bg-dark)' },
+	{ id: 'materialidad', name: '6. Materialidad', bg: 'var(--bg-slate)' },
+	{ id: 'contacto', name: '7. Contacto', bg: 'var(--bg-brown)' },
 ];
 ---
 
@@ -19,7 +19,11 @@ const sections = [
 	<main>
 		{
 			sections.map((section) => (
-				<section id={section.id} style={`background:${section.color}`}>
+				<section
+					id={section.id}
+					class:list={{ 'on-light': section.light }}
+					style={`background:${section.bg}`}
+				>
 					<h2>{section.name}</h2>
 				</section>
 			))
@@ -39,5 +43,6 @@ const sections = [
 	h2 {
 		margin: 0;
 		font-size: 2rem;
+		font-weight: 400;
 	}
 </style>
