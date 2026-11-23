@@ -1,0 +1,42 @@
+---
+const links = [
+	{ href: '#inicio', label: 'Inicio' },
+	{ href: '#sobre-mi', label: 'Sobre mí' },
+	{ href: '#proyectos', label: 'Proyectos' },
+	{ href: '#filosofia', label: 'Filosofía' },
+	{ href: '#referencias', label: 'Referencias' },
+	{ href: '#materialidad', label: 'Materialidad' },
+	{ href: '#contacto', label: 'Contacto' },
+];
+---
+
+<header>
+	<nav>
+		{links.map((link) => <a href={link.href}>{link.label}</a>)}
+	</nav>
+</header>
+
+<style>
+	header {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 10;
+		background: rgba(255, 255, 255, 0.9);
+		border-bottom: 1px solid #ccc;
+	}
+	nav {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+		padding: 0.75rem 1.5rem;
+	}
+	a {
+		color: #111;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+</style>

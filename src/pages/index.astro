@@ -1,11 +1,43 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const sections = [
+	{ id: 'inicio', name: '1. Introducción', color: '#f4d6d6' },
+	{ id: 'sobre-mi', name: '2. Sobre mí', color: '#f4e7d0' },
+	{ id: 'proyectos', name: '3. Proyectos', color: '#f1f4d0' },
+	{ id: 'filosofia', name: '4. Filosofía', color: '#d6f4de' },
+	{ id: 'referencias', name: '5. Referencias', color: '#d0eef4' },
+	{ id: 'materialidad', name: '6. Materialidad', color: '#d6dcf4' },
+	{ id: 'contacto', name: '7. Contacto', color: '#e8d6f4' },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Portfolio">
+	<Header />
+	<main>
+		{
+			sections.map((section) => (
+				<section id={section.id} style={`background:${section.color}`}>
+					<h2>{section.name}</h2>
+				</section>
+			))
+		}
+	</main>
+	<Footer />
 </Layout>
+
+<style>
+	section {
+		min-height: 100vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		scroll-margin-top: 3rem;
+	}
+	h2 {
+		margin: 0;
+		font-size: 2rem;
+	}
+</style>
