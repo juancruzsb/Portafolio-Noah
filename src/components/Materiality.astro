@@ -1,0 +1,152 @@
+---
+const colors = [
+	{ name: 'Negro profundo', hex: '#0d0d0e', bordered: true },
+	{ name: 'Grafito', hex: '#31353b', bordered: true },
+	{ name: 'Piedra', hex: '#7b7b78' },
+	{ name: 'Arena', hex: '#c4b8a7' },
+	{ name: 'Nogal', hex: '#4e3524' },
+	{ name: 'Marfil', hex: '#efebe2' },
+];
+---
+
+<section id="materialidad">
+	<div class="materiality">
+		<header class="intro">
+			<p class="eyebrow">Materialidad</p>
+			<h2 class="title">Una paleta de<br />materiales y luz</h2>
+			<p class="lead">
+				Piedra, nogal y mármol sobre negros profundos. La luz cálida define cómo se leen.
+			</p>
+		</header>
+
+		<ul class="palette">
+			{
+				colors.map((color) => (
+					<li class="swatch">
+						<div
+							class:list={['chip', { bordered: color.bordered }]}
+							style={`background:${color.hex}`}
+							role="img"
+							aria-label={`Color ${color.name} ${color.hex}`}
+						/>
+						<span class="name">{color.name}</span>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
+
+<style>
+	section {
+		background: var(--bg-slate);
+		/* Figma: el primer texto arranca a 120px del borde superior de la sección */
+		padding-block: calc(120 * var(--u));
+		box-sizing: border-box;
+	}
+
+	.materiality {
+		width: var(--content-width);
+		margin-inline: auto;
+	}
+
+	/* ---- Cabecera de la sección ---- */
+	.intro {
+		position: relative;
+	}
+
+	.eyebrow {
+		height: calc(18 * var(--u));
+		margin: 0;
+		display: flex;
+		align-items: center;
+		font-family: var(--font-body);
+		font-weight: 500;
+		font-size: calc(12 * var(--u));
+		line-height: 1;
+		letter-spacing: 0.3em; /* 3.6px / 12px */
+		text-transform: uppercase;
+		color: var(--heading);
+	}
+
+	.title {
+		min-height: calc(167.06 * var(--u));
+		margin: calc(22 * var(--u)) 0 0; /* eyebrow 120 + 18 -> título 160 */
+		display: flex;
+		align-items: center;
+		font-family: var(--font-logo);
+		font-weight: 400;
+		font-size: min(calc(76.5 * var(--u)), 12vw);
+		line-height: 1.0205; /* 78.07 / 76.5 */
+		color: #efeae0;
+	}
+
+	/* Texto a la derecha del titular: top 261.12 / left 1068.66 (relativo al contenido: 676.66) */
+	.lead {
+		position: absolute;
+		top: calc(141.12 * var(--u)); /* 261.12 - 120 */
+		left: calc(676.66 * var(--u));
+		width: calc(459.17 * var(--u));
+		height: calc(57.5 * var(--u));
+		margin: 0;
+		display: flex;
+		align-items: center;
+		font-family: var(--font-body);
+		font-weight: 300;
+		font-size: calc(18 * var(--u));
+		line-height: 1.75; /* 31.5 / 18 */
+		color: var(--text);
+	}
+
+	/* ---- Paleta: 6 cajas de 176 x 260 con 16px entre cajas ---- */
+	.palette {
+		list-style: none;
+		margin: calc(75.06 * var(--u)) 0 0; /* 327.06 -> 402.12 */
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		column-gap: calc(16 * var(--u));
+	}
+
+	.chip {
+		width: 100%;
+		aspect-ratio: 176 / 260;
+		box-sizing: border-box;
+	}
+
+	.chip.bordered {
+		border: 1px solid #efeae038;
+	}
+
+	.name {
+		display: flex;
+		align-items: center;
+		height: calc(32 * var(--u));
+		margin-top: calc(16 * var(--u)); /* 662.12 -> 678.12 */
+		font-family: var(--font-hand);
+		font-weight: 300;
+		font-size: calc(32 * var(--u));
+		line-height: 1;
+		white-space: nowrap;
+		color: #efeae0;
+	}
+
+	/* ---- Pantallas más angostas ---- */
+	@media (max-width: 1180px) {
+		.lead {
+			position: static;
+			width: auto;
+			height: auto;
+			margin-top: calc(24 * var(--u));
+		}
+
+		.title {
+			min-height: 0;
+		}
+
+		.palette {
+			grid-template-columns: repeat(3, 1fr);
+			row-gap: calc(32 * var(--u));
+		}
+	}
+</style>
