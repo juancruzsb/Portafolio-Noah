@@ -1,16 +1,73 @@
 <footer>
-	<p>Footer — frase</p>
+	<div class="inner">
+		<a class="logo" href="#inicio" aria-label="NOAH - Inicio">NOAH</a>
+		<p class="phrase">Less form, more presence.</p>
+		<p class="credit">Noah Ariel Marabi · 2026</p>
+	</div>
 </footer>
 
 <style>
 	footer {
-		padding: 2rem 1.5rem;
-		text-align: center;
 		background: var(--bg-dark);
 	}
+
+	/* Figma: textos a 38px del borde, 18px de alto => footer de 94px */
+	.inner {
+		position: relative;
+		width: var(--content-width);
+		height: calc(94 * var(--u));
+		margin-inline: auto;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	/* Mismo logo que el header */
+	.logo {
+		font-family: var(--font-logo);
+		font-size: max(22.4px, 1.1667vw); /* 22.4 / 1920 */
+		letter-spacing: 0.339em; /* 7.6px / 22.4px */
+		color: #efeae0;
+		text-decoration: none;
+		line-height: 1;
+	}
+
 	p {
 		margin: 0;
-		color: var(--footer-text);
+		display: flex;
+		align-items: center;
+		height: calc(18 * var(--u));
 		font-family: var(--font-body);
+		font-weight: 500;
+		font-size: calc(12 * var(--u));
+		line-height: 1;
+		letter-spacing: 0.28em; /* 3.36px / 12px */
+		white-space: nowrap;
+		color: var(--footer-text);
+	}
+
+	.phrase {
+		position: absolute;
+		left: calc(374.91 * var(--u)); /* 766.91 - 392 */
+		text-transform: uppercase;
+	}
+
+	/* ---- Pantallas más angostas ---- */
+	@media (max-width: 1180px) {
+		.inner {
+			height: auto;
+			padding-block: calc(38 * var(--u));
+			flex-wrap: wrap;
+			gap: calc(16 * var(--u)) calc(32 * var(--u));
+		}
+
+		.phrase {
+			position: static;
+		}
+
+		p {
+			white-space: normal;
+			height: auto;
+		}
 	}
 </style>

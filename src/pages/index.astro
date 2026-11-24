@@ -8,10 +8,7 @@ import Projects from '../components/Projects.astro';
 import Philosophy from '../components/Philosophy.astro';
 import References from '../components/References.astro';
 import Materiality from '../components/Materiality.astro';
-
-const sections = [
-	{ id: 'contacto', name: '7. Contacto', bg: 'var(--bg-brown)' },
-];
+import Contact from '../components/Contact.astro';
 ---
 
 <Layout title="Portfolio">
@@ -23,32 +20,7 @@ const sections = [
 		<Philosophy />
 		<References />
 		<Materiality />
-		{
-			sections.map((section) => (
-				<section
-					id={section.id}
-					class:list={{ 'on-light': section.light }}
-					style={`background:${section.bg}`}
-				>
-					<h2>{section.name}</h2>
-				</section>
-			))
-		}
+		<Contact />
 	</main>
 	<Footer />
 </Layout>
-
-<style>
-	section {
-		min-height: 100vh;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		scroll-margin-top: 5rem;
-	}
-	h2 {
-		margin: 0;
-		font-size: 2rem;
-		font-weight: 400;
-	}
-</style>

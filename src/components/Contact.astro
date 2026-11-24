@@ -1,0 +1,162 @@
+---
+const items = [
+	{ label: 'Email', value: 'noahmarab@gmail.com', href: 'mailto:noahmarab@gmail.com' },
+	{ label: 'Ciudad', value: 'Buenos Aires' },
+	{ label: 'Instagram', value: '@Noahmarabi_', href: 'https://instagram.com/Noahmarabi_' },
+	{ label: 'LinkedIn', value: 'Noah Marabi' },
+];
+---
+
+<section id="contacto">
+	<div class="contact">
+		<header class="intro">
+			<p class="eyebrow">Contacto</p>
+			<h2 class="title">Hablemos de<br />tu próximo<br />espacio.</h2>
+		</header>
+
+		<ul class="items">
+			{
+				items.map((item) => (
+					<li class="item">
+						<span class="label">{item.label}</span>
+						{item.href ? (
+							<a class="value" href={item.href}>
+								{item.value}
+							</a>
+						) : (
+							<span class="value">{item.value}</span>
+						)}
+					</li>
+				))
+			}
+		</ul>
+	</div>
+</section>
+
+<style>
+	section {
+		background: var(--bg-brown);
+		/* Figma: las cajas de la derecha arrancan a 120px del borde superior */
+		padding-block: calc(120 * var(--u));
+		box-sizing: border-box;
+		scroll-margin-top: 5rem;
+	}
+
+	.contact {
+		width: var(--content-width);
+		margin-inline: auto;
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		gap: calc(40 * var(--u));
+	}
+
+	/* ---- Columna izquierda ---- */
+	.intro {
+		/* eyebrow en top 244.82; las cajas arrancan en 120 */
+		margin-top: calc(124.82 * var(--u));
+	}
+
+	.eyebrow {
+		height: calc(18 * var(--u));
+		margin: 0;
+		display: flex;
+		align-items: center;
+		font-family: var(--font-body);
+		font-weight: 500;
+		font-size: calc(12 * var(--u));
+		line-height: 1;
+		letter-spacing: 0.3em; /* 3.6px / 12px */
+		text-transform: uppercase;
+		color: var(--heading);
+	}
+
+	.title {
+		min-height: calc(245.12 * var(--u));
+		margin: calc(22 * var(--u)) 0 0; /* 244.82 + 18 -> 284.82 (ajustado al Figma) */
+		display: flex;
+		align-items: center;
+		font-family: var(--font-logo);
+		font-weight: 400;
+		font-size: min(calc(76.5 * var(--u)), 12vw);
+		line-height: 1.0205; /* 78.07 / 76.5 */
+		color: #efeae0;
+	}
+
+	/* ---- Columna derecha: cajas de 486px ---- */
+	.items {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		width: calc(486 * var(--u));
+		flex: none;
+	}
+
+	.item {
+		position: relative;
+		box-sizing: border-box;
+		height: calc(101 * var(--u));
+		border-top: 1px solid #efeae038;
+	}
+
+	.item:last-child {
+		height: calc(102 * var(--u));
+		border-bottom: 1px solid #efeae038;
+	}
+
+	.label {
+		position: absolute;
+		top: calc(25 * var(--u));
+		left: 0;
+		display: flex;
+		align-items: center;
+		height: calc(16 * var(--u));
+		font-family: var(--font-body);
+		font-weight: 500;
+		font-size: calc(11 * var(--u));
+		line-height: 1;
+		letter-spacing: 0.28em; /* 3.08px / 11px */
+		text-transform: uppercase;
+		color: var(--heading);
+	}
+
+	.value {
+		position: absolute;
+		top: calc(47 * var(--u));
+		left: 0;
+		display: flex;
+		align-items: center;
+		height: calc(30 * var(--u));
+		font-family: var(--font-logo);
+		font-weight: 400;
+		font-size: calc(25.8 * var(--u));
+		line-height: 1;
+		white-space: nowrap;
+		color: #efeae0;
+		text-decoration: none;
+	}
+
+	a.value:hover {
+		text-decoration: underline;
+	}
+
+	/* ---- Pantallas más angostas ---- */
+	@media (max-width: 1180px) {
+		.contact {
+			flex-direction: column;
+			gap: calc(60 * var(--u));
+		}
+
+		.intro {
+			margin-top: 0;
+		}
+
+		.title {
+			min-height: 0;
+		}
+
+		.items {
+			width: 100%;
+		}
+	}
+</style>
